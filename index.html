@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 600px;
+            height: 600px;
+            background-color: #eee;
+            overflow-y:scroll;
+
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input autocomplete="off" type="text" id="search">
+        <div class="container"></div>
+    </div>
+    <script>
+        console.log(new RegExp)
+
+        const inputv = document.querySelector('#search')
+        let container = document.querySelector('.container')
+       
+        window.onload = function () {
+          let  letters = /^[A-Za-z]+$/
+            inputv.addEventListener('keyup', ()=>{
+            container.innerHTML=""
+        const inputField = inputv.value
+        const string = inputField.replace(/\s\s+/g, ' ');
+        console.log(string)
+
+        const regEx = new RegExp(string, "i")   
+
+
+                const xhr = new XMLHttpRequest
+            xhr.open('GET', "https://jsonplaceholder.typicode.com/albums")
+            xhr.onload = function () {
+              if(this.status === 200){
+                  const responseTxt = JSON.parse(this.responseText)
+                  responseTxt.map(function(element){
+                      let alphabet = element.title
+                      if(alphabet.search(regEx) != -1){
+                          container.innerHTML  +=`<div class="test">${element.title} </div>
+                          `
+
+                          
+                      }
+                  })
+                  
+              }
+            }
+            xhr.send()
+            })
+        }
+        
+    </script>
+</body>
+</html>
